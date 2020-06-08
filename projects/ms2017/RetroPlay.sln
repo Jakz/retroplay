@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RetroPlay", "RetroPlay\RetroPlay.vcxproj", "{AAC7D88A-85D8-43D0-B263-F050B1CFE9A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AAC7D88A-85D8-43D0-B263-F050B1CFE9A3}.Debug|x64.ActiveCfg = Debug|x64
+		{AAC7D88A-85D8-43D0-B263-F050B1CFE9A3}.Debug|x64.Build.0 = Debug|x64
+		{AAC7D88A-85D8-43D0-B263-F050B1CFE9A3}.Release|x64.ActiveCfg = Release|x64
+		{AAC7D88A-85D8-43D0-B263-F050B1CFE9A3}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D9D3AE7-4F6F-43CA-9021-A5C4C5532372}
+	EndGlobalSection
+EndGlobal
