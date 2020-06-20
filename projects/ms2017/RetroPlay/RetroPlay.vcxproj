@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\FileManager.cpp" />
     <ClCompile Include="..\..\..\src\main.cpp" />
     <ClCompile Include="..\..\..\src\plugins\libgme\gme\Ay_Apu.cpp" />
     <ClCompile Include="..\..\..\src\plugins\libgme\gme\Ay_Cpu.cpp" />
@@ -156,7 +157,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\AudioEngine.h" />
+    <ClInclude Include="..\..\..\src\Common.h" />
     <ClInclude Include="..\..\..\src\FileManager.h" />
+    <ClInclude Include="..\..\..\src\Plugin.h" />
     <ClInclude Include="..\..\..\src\plugins\libgme\gme\Ay_Apu.h" />
     <ClInclude Include="..\..\..\src\plugins\libgme\gme\Ay_Cpu.h" />
     <ClInclude Include="..\..\..\src\plugins\libgme\gme\Ay_Emu.h" />

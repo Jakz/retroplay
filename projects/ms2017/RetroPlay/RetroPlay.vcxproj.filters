@@ -252,6 +252,9 @@
     <ClCompile Include="..\..\..\src\plugins\libupse\Neill\spucore.c">
       <Filter>src\plugins\upse\Neill</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\FileManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\plugins\libgme\gme\Kss_Scc_Apu.h">
@@ -524,6 +527,8 @@
     <ClInclude Include="..\..\..\src\FileManager.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\Plugin.h" />
+    <ClInclude Include="..\..\..\src\Common.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\src\plugins\libgme\gme\libgme.pc.in">

@@ -3,12 +3,16 @@
 #include <SDL.h>
 #include <cstring>
 
+#include "Plugin.h"
+
 class AudioEngine
 {
 private:
   SDL_AudioDeviceID device;
   SDL_AudioSpec requested, obtained;
   bool paused, inited;
+
+  static void callback(void* data, uint8_t* out, int count);
 
 public:
   using callback_t = SDL_AudioCallback;
@@ -18,7 +22,7 @@ public:
   AudioEngine();
   ~AudioEngine();
 
-  bool init(int rate, callback_t callback, void* data);
+  bool init(int rate, Player* target);
 
   void resume();
   void pause();
@@ -40,7 +44,12 @@ AudioEngine::~AudioEngine()
     cleanup();
 }
 
-bool AudioEngine::init(int rate, callback_t callback, void* data)
+void AudioEngine::callback(void* data, uint8_t* out, int count)
+{
+  static_cast<Player*>(data)->fillBuffer(out, count);
+}
+
+bool AudioEngine::init(int rate, Player* target)
 {
   memset(&requested, 0, sizeof(SDL_AudioSpec));
   requested.freq = rate;
@@ -48,7 +57,7 @@ bool AudioEngine::init(int rate, callback_t callback, void* data)
   requested.channels = 2;
   requested.samples = 8192;
   requested.callback = callback;
-  requested.userdata = data;
+  requested.userdata = target;
 
   device = SDL_OpenAudioDevice(nullptr, 0, &requested, &obtained, 0);
 
@@ -85,7 +94,7 @@ void AudioEngine::stop()
 
 void AudioEngine::cleanup()
 {
-  printf("[LOG] Closed audio device %s.\n", SDL_GetAudioDeviceName(device, false));
+  printf("[LOG] Closed audio device.\n");
   stop();
   SDL_CloseAudioDevice(device);
   inited = false;

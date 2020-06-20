@@ -206,6 +206,73 @@ private:
 public:
 };
 
+#include "Plugin.h"
+
+#include "plugins/libgme/gme/gme.h"
+
+class PlayerGME : public Player
+{
+private:
+  int rate;
+  gme_info_t* trackInfo;
+  Music_Emu* emu;
+
+public:
+  PlayerGME(int rate) : rate(rate), trackInfo(nullptr), emu(nullptr) { }
+
+  status_t loadData(data_t data) override
+  {
+    gme_delete(emu);
+    gme_err_t r = gme_open_data(data.data, data.length, &emu, rate);
+    return status_t(r);
+  }
+
+  void cleanup() override
+  {
+    gme_delete(emu);
+  }
+
+  status_t play(track_index i) override
+  {
+    status_t s;
+    
+    if (emu)
+    {
+      gme_free_info(trackInfo);
+      trackInfo = nullptr;
+      if (!(s = gme_track_info(emu, &trackInfo, i)))
+        return s;
+
+      if (!(s = gme_start_track(emu, i)))
+        return s;
+    }
+
+    return status_t();
+  }
+
+  void fillBuffer(uint8_t* out, size_t count) override
+  {
+    if (emu)
+    {
+      gme_play(emu, count / 2, (short*)out);
+    }
+  }
+};
+
+class PluginGME : public Plugin
+{
+public:
+  Player* buildPlayer(const AudioSpec& spec)
+  { 
+    auto* player = new PlayerGME(spec.rate); 
+    return player;
+  }
+
+  std::vector<MusicFormatType> supportedFormats() override
+  {
+    return { MusicFormatType::NSF, MusicFormatType::GBS };
+  }
+};
 
 #include "AudioEngine.h"
 #include "FileManager.h"
@@ -227,15 +294,18 @@ int main(int argc, char* argv[])
   
 
   FileManager fm;
-  auto data = fm.load("music/sml.gbs");
+  auto data = fm.load("music/smb3.nsf");
 
-  Music_Player* player = new Music_Player();
-  player->init(44100);
+  PluginGME plugin = PluginGME();
 
-  audio.init(44100, Music_Player::fill_buffer, player);
+  Player* player = plugin.buildPlayer({ 44100 });
 
-  player->load_data(data.data, data.length);
-  player->start_track(0);
+  audio.init(44100, player);
+
+  player->loadData(data);
+  player->play(0);
+
+  //player->set_stereo_depth(0.5f);
 
   audio.resume();
 
@@ -244,6 +314,8 @@ int main(int argc, char* argv[])
 
   //loader.load("1level.l");
   //getchar();
+
+  delete player;
 
   audio.cleanup();
 
