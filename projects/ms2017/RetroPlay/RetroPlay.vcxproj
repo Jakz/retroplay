@@ -50,10 +50,10 @@
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\dev\openmom\libs\sdl2\win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\openmom\libs\sdl2\win\include;D:\dev\retro8\projects\vs2017\libs\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>D:\dev\openmom\libs\sdl2\win\lib\x64\SDL2.lib;D:\dev\openmom\libs\sdl2\win\lib\x64\SDL2main.lib;D:\dev\openmom\libs\sdl2\win\lib\x64\SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D:\dev\openmom\libs\sdl2\win\lib\x64\SDL2.lib;D:\dev\openmom\libs\sdl2\win\lib\x64\SDL2main.lib;D:\dev\openmom\libs\sdl2\win\lib\x64\SDL2_image.lib;D:\dev\retro8\projects\vs2017\libs\zlib\lib\win_x64\zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -66,12 +66,12 @@
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\dev\openmom\libs\sdl2\win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\openmom\libs\sdl2\win\include;D:\dev\retro8\projects\vs2017\libs\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>D:\dev\openmom\libs\sdl2\win\lib\x64\SDL2.lib;D:\dev\openmom\libs\sdl2\win\lib\x64\SDL2main.lib;D:\dev\openmom\libs\sdl2\win\lib\x64\SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D:\dev\openmom\libs\sdl2\win\lib\x64\SDL2.lib;D:\dev\openmom\libs\sdl2\win\lib\x64\SDL2main.lib;D:\dev\openmom\libs\sdl2\win\lib\x64\SDL2_image.lib;D:\dev\retro8\projects\vs2017\libs\zlib\lib\win_x64\zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -125,9 +125,38 @@
     <ClCompile Include="..\..\..\src\plugins\libgme\gme\Ym2612_Emu.cpp" />
     <ClCompile Include="..\..\..\src\plugins\libgme\player\Audio_Scope.cpp" />
     <ClCompile Include="..\..\..\src\plugins\libgme\player\Music_Player.cpp" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\Neill\spu.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\Neill\spucore.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_bios_manager.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_container_xsf.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_eventloop.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_filesystem.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_loader.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_loader_psf1.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_loader_psf2.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_module.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_bios_base.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_counters.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_dma_manager.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_executive.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_gpu.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_hal.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_memory_manager.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_spu_base.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_spu_dma_handler.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_spu_lowpass_filter.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_spu_nyquist_filter.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_spu_register_io.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps2_iop_base.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_r3000_abstract.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_r3000_bytecode_evaluator.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_string.c" />
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_util.c" />
     <ClCompile Include="..\..\..\src\ui\view_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\AudioEngine.h" />
+    <ClInclude Include="..\..\..\src\FileManager.h" />
     <ClInclude Include="..\..\..\src\plugins\libgme\gme\Ay_Apu.h" />
     <ClInclude Include="..\..\..\src\plugins\libgme\gme\Ay_Cpu.h" />
     <ClInclude Include="..\..\..\src\plugins\libgme\gme\Ay_Emu.h" />
@@ -184,6 +213,35 @@
     <ClInclude Include="..\..\..\src\plugins\libgme\gme\Vgm_Emu_Impl.h" />
     <ClInclude Include="..\..\..\src\plugins\libgme\gme\Ym2413_Emu.h" />
     <ClInclude Include="..\..\..\src\plugins\libgme\gme\Ym2612_Emu.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\Neill\emuconfig.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\Neill\spu.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\Neill\spucore.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-container-xsf.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-debug.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-eventloop.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-filesystem.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-internal.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-loader.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-module.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-bios-base.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-bios-private.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-counters.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-dma-manager.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-executive.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-gpu.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-hal.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-memory-manager.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-spu-abstract.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-spu-base.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-spu-dma-handler.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-spu-features.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-spu-register-io.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps2-iop-private.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-r3000-abstract.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-spu-internal.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-string.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-types.h" />
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse.h" />
     <ClInclude Include="..\..\..\src\ui\sdl_helper.h" />
     <ClInclude Include="..\..\..\src\ui\views.h" />
     <ClInclude Include="..\..\..\src\ui\view_manager.h" />

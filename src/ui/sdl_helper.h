@@ -82,7 +82,7 @@ bool SDL<EventHandler, Renderer>::init()
   }
 
   // SDL_WINDOW_FULLSCREEN
-  _window = SDL_CreateWindow("AbabIsMe", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_OPENGL);
+  _window = SDL_CreateWindow("RetroPlay", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_OPENGL);
   _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 
   return true;

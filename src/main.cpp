@@ -34,15 +34,6 @@ void handle_error(const char*);
 static bool paused;
 static Music_Player* player;
 
-static void init()
-{
-  // Create player
-  player = new Music_Player;
-  if (!player)
-    handle_error("Out of memory");
-  handle_error(player->init());
-}
-
 static void start_track(int track, const char* path)
 {
   paused = false;
@@ -98,7 +89,8 @@ int mainz()
       if (track < player->track_count())
         start_track(++track, path);
       else
-        player->pause(paused = true);
+        ;
+        //player->pause(paused = true);
     }
 
     // Handle keyboard input
@@ -147,7 +139,7 @@ int mainz()
 
         case SDLK_SPACE: // toggle pause
           paused = !paused;
-          player->pause(paused);
+          //player->pause(paused);
           break;
 
         case SDLK_a: // toggle accurate emulation
@@ -207,43 +199,21 @@ void handle_error(const char* error)
   }
 }
 
+class MusicPlugin
+{
+private:
 
-void* mopen(const char* path, const char* mode) { return fopen(path, mode); }
-int mclose(void* file) { return fclose((FILE*)file); }
-long mtell(void* file) { return ftell((FILE*)file); }
-size_t mread(void* ptr, size_t size, size_t count, void* file) { return fread(ptr, size, count, (FILE*)file); }
-int mseek(void* file, long offset, int whence) { return fseek((FILE*)file, offset, whence); }
+public:
+};
+
+
+#include "AudioEngine.h"
+#include "FileManager.h"
+
+AudioEngine audio;
 
 int main(int argc, char* argv[])
-{
-  /*const char* path = "D:/dev/retroplay/projects/ms2017/RetroPlay/ff7/319 Aeris' Theme.minipsf";
-
-  upse_iofuncs_t functs = 
-  {
-    mopen, mread, mseek, mclose, mtell
-  };
-
-  upse_module_init();
-
-  upse_module_t* module = upse_module_open(path, &functs);
-
-  s16* samples = new s16[module->metadata->rate];
-  int position = 0;
-
-  s16* buffer = nullptr;
-
-  while (position < module->metadata->rate)
-  {
-    int rendered = module->evloop_render(&module->instance, &buffer);
-    memcpy(samples + position, buffer, sizeof(s16) * rendered);
-    position += rendered;
-  }
-
-
-  int rendered = module->evloop_render(&module->instance, &buffer);
-
-  upse_module_close(module);*/
-  
+{  
   if (!gvm.init())
     return -1;
 
@@ -254,16 +224,62 @@ int main(int argc, char* argv[])
     return -1;
   }
 
-  init();
-  handle_error(player->load_file("sml.gbs"));
-  player->set_tempo(1.0f);
-  start_track(1, "sml.gbs");
-  player->mute_voices(3);
+  
+
+  FileManager fm;
+  auto data = fm.load("music/sml.gbs");
+
+  Music_Player* player = new Music_Player();
+  player->init(44100);
+
+  audio.init(44100, Music_Player::fill_buffer, player);
+
+  player->load_data(data.data, data.length);
+  player->start_track(0);
+
+  audio.resume();
 
   gvm.loop();
   gvm.deinit();
 
   //loader.load("1level.l");
   //getchar();
+
+  audio.cleanup();
+
   return 0;
 }
+
+void* mopen(const char* path, const char* mode) { return fopen(path, mode); }
+int mclose(void* file) { return fclose((FILE*)file); }
+long mtell(void* file) { return ftell((FILE*)file); }
+size_t mread(void* ptr, size_t size, size_t count, void* file) { return fread(ptr, size, count, (FILE*)file); }
+int mseek(void* file, long offset, int whence) { return fseek((FILE*)file, offset, whence); }
+
+/*const char* path = "D:/dev/retroplay/projects/ms2017/RetroPlay/ff7/319 Aeris' Theme.minipsf";
+
+upse_iofuncs_t functs =
+{
+  mopen, mread, mseek, mclose, mtell
+};
+
+upse_module_init();
+
+upse_module_t* module = upse_module_open(path, &functs);
+
+s16* samples = new s16[module->metadata->rate];
+int position = 0;
+
+s16* buffer = nullptr;
+
+while (position < module->metadata->rate)
+{
+  int rendered = module->evloop_render(&module->instance, &buffer);
+  memcpy(samples + position, buffer, sizeof(s16) * rendered);
+  position += rendered;
+}
+
+
+int rendered = module->evloop_render(&module->instance, &buffer);
+
+upse_module_close(module);*/

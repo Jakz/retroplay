@@ -6,6 +6,7 @@
 class AudioEngine
 {
 private:
+  SDL_AudioDeviceID device;
   SDL_AudioSpec requested, obtained;
   bool paused, inited;
 
@@ -17,7 +18,7 @@ public:
   AudioEngine();
   ~AudioEngine();
 
-  bool init(int rate, callback_t callback);
+  bool init(int rate, callback_t callback, void* data);
 
   void resume();
   void pause();
@@ -39,7 +40,7 @@ AudioEngine::~AudioEngine()
     cleanup();
 }
 
-bool AudioEngine::init(int rate, callback_t callback)
+bool AudioEngine::init(int rate, callback_t callback, void* data)
 {
   memset(&requested, 0, sizeof(SDL_AudioSpec));
   requested.freq = rate;
@@ -47,13 +48,17 @@ bool AudioEngine::init(int rate, callback_t callback)
   requested.channels = 2;
   requested.samples = 8192;
   requested.callback = callback;
-  requested.userdata = nullptr;
+  requested.userdata = data;
 
-  if (SDL_OpenAudio(&requested, &obtained) < 0)
+  device = SDL_OpenAudioDevice(nullptr, 0, &requested, &obtained, 0);
+
+  if (device <= 0)
   {
-    //fprintf(stderr, "Error while opening audio: %s", SDL_GetError());
+    fprintf(stderr, "Error while opening audio: %s", SDL_GetError());
     return false;
   }
+  else
+    printf("[LOG] Opened audio device %s with a sample rate of %d.\n", SDL_GetAudioDeviceName(device, false), rate);
 
   inited = true;
   return true;
@@ -62,25 +67,26 @@ bool AudioEngine::init(int rate, callback_t callback)
 void AudioEngine::resume()
 {
   if (paused)
-    SDL_PauseAudio(false);
+    SDL_PauseAudioDevice(device, false);
 }
 
 void AudioEngine::pause()
 {
   if (!paused)
-    SDL_PauseAudio(true);
+    SDL_PauseAudioDevice(device, true);
 }
 
 void AudioEngine::stop()
 {
   pause();
-  SDL_LockAudio();
-  SDL_UnlockAudio();
+  SDL_LockAudioDevice(device);
+  SDL_UnlockAudioDevice(device);
 }
 
 void AudioEngine::cleanup()
 {
+  printf("[LOG] Closed audio device %s.\n", SDL_GetAudioDeviceName(device, false));
   stop();
-  SDL_CloseAudio();
+  SDL_CloseAudioDevice(device);
   inited = false;
 }

@@ -13,6 +13,12 @@
     <Filter Include="src\ui">
       <UniqueIdentifier>{2feab5a7-d39c-443a-9bea-82c772c6c2af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\plugins\upse">
+      <UniqueIdentifier>{ca1853a2-e169-4fc0-acdd-bc825c89c84f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\plugins\upse\Neill">
+      <UniqueIdentifier>{ce0e272a-941f-4ce4-9890-5c1222bbf47f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\plugins\libgme\gme\Kss_Scc_Apu.cpp">
@@ -164,6 +170,87 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\plugins\libgme\player\Audio_Scope.cpp">
       <Filter>src\plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_bios_manager.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_container_xsf.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_eventloop.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_filesystem.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_loader.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_loader_psf1.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_loader_psf2.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_module.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_bios_base.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_counters.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_dma_manager.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_executive.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_gpu.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_hal.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_memory_manager.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_spu_base.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_spu_dma_handler.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_spu_lowpass_filter.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_spu_nyquist_filter.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps1_spu_register_io.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_ps2_iop_base.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_r3000_abstract.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_r3000_bytecode_evaluator.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_string.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\upse_util.c">
+      <Filter>src\plugins\upse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\Neill\spu.c">
+      <Filter>src\plugins\upse\Neill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\plugins\libupse\Neill\spucore.c">
+      <Filter>src\plugins\upse\Neill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -343,6 +430,99 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\ui\views.h">
       <Filter>src\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-spu-features.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-spu-register-io.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps2-iop-private.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-r3000-abstract.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-spu-internal.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-string.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-types.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-container-xsf.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-debug.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-eventloop.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-filesystem.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-internal.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-loader.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-module.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-bios-base.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-bios-private.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-counters.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-dma-manager.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-executive.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-gpu.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-hal.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-memory-manager.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-spu-abstract.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-spu-base.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\upse-ps1-spu-dma-handler.h">
+      <Filter>src\plugins\upse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\Neill\emuconfig.h">
+      <Filter>src\plugins\upse\Neill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\Neill\spu.h">
+      <Filter>src\plugins\upse\Neill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\plugins\libupse\Neill\spucore.h">
+      <Filter>src\plugins\upse\Neill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\AudioEngine.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\FileManager.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
