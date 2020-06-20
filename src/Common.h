@@ -37,3 +37,5 @@ struct AudioSpec
 {
   int rate;
 };
+
+#define ERROR(fmt, ...) printf(fmt ".\n", __VA_ARGS__)

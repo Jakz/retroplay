@@ -38,5 +38,6 @@ private:
 
 public:
   data_t load(const path& path);
+  const MusicFormat* formatForPath(const path& path);
 };
 

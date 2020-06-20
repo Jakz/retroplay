@@ -27,6 +27,31 @@ private:
 
 public:
 
-  virtual Player* buildPlayer(const AudioSpec& spec) = 0;
-  virtual std::vector<MusicFormatType> supportedFormats() = 0;
+  virtual Player* buildPlayer(const AudioSpec& spec) const = 0;
+  virtual std::vector<MusicFormatType> supportedFormats() const = 0;
+
+  virtual std::string name() const = 0;
+};
+
+class PluginManager
+{
+private:
+  std::vector<std::unique_ptr<Plugin>> plugins;
+
+public:
+  void registerPlugin(Plugin* plugin) { plugins.push_back(std::unique_ptr<Plugin>(plugin)); }
+  Plugin* findPluginForFormat(MusicFormatType format)
+  {
+    auto it = std::find_if(plugins.begin(), plugins.end(), [format](const auto& plugin) {
+      const auto& formats = plugin->supportedFormats();
+      return std::find(formats.begin(), formats.end(), format) != formats.end();
+    });
+
+    if (it != plugins.end())
+      return it->get();
+    else
+      return nullptr;
+  }
+
+  size_t size() const { return plugins.size(); }
 };

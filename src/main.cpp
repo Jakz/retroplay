@@ -219,6 +219,7 @@ private:
 
 public:
   PlayerGME(int rate) : rate(rate), trackInfo(nullptr), emu(nullptr) { }
+  ~PlayerGME() { cleanup(); }
 
   status_t loadData(data_t data) override
   {
@@ -230,6 +231,9 @@ public:
   void cleanup() override
   {
     gme_delete(emu);
+    emu = nullptr;
+    gme_free_info(trackInfo);
+    trackInfo = nullptr;
   }
 
   status_t play(track_index i) override
@@ -262,22 +266,25 @@ public:
 class PluginGME : public Plugin
 {
 public:
-  Player* buildPlayer(const AudioSpec& spec)
+  Player* buildPlayer(const AudioSpec& spec) const
   { 
     auto* player = new PlayerGME(spec.rate); 
     return player;
   }
 
-  std::vector<MusicFormatType> supportedFormats() override
+  std::vector<MusicFormatType> supportedFormats() const override
   {
     return { MusicFormatType::NSF, MusicFormatType::GBS };
   }
+
+  std::string name() const override { return "Game Music Emu"; }
 };
 
 #include "AudioEngine.h"
 #include "FileManager.h"
 
 AudioEngine audio;
+PluginManager plugins;
 
 int main(int argc, char* argv[])
 {  
@@ -291,31 +298,48 @@ int main(int argc, char* argv[])
     return -1;
   }
 
-  
-
   FileManager fm;
-  auto data = fm.load("music/smb3.nsf");
+  plugins.registerPlugin(new PluginGME());
+  
+  
+  const path path = "music/smb3.nsf";
+  const MusicFormat* format = fm.formatForPath(path);
 
-  PluginGME plugin = PluginGME();
+  Player* player = nullptr;
 
-  Player* player = plugin.buildPlayer({ 44100 });
+  if (format)
+  {
+    const Plugin* plugin = plugins.findPluginForFormat(format->type);
 
-  audio.init(44100, player);
+    if (plugin)
+    {
+      auto data = fm.load(path);
+      player = plugin->buildPlayer({ 44100 });
 
-  player->loadData(data);
-  player->play(0);
+      audio.init(44100, player);
 
-  //player->set_stereo_depth(0.5f);
+      player->loadData(data);
+      player->play(0);
 
-  audio.resume();
+      //player->set_stereo_depth(0.5f);
+
+      audio.resume();
+
+      //loader.load("1level.l");
+      //getchar();
+    }
+    else
+      ERROR("No plugin registered for type %s", format->name.c_str());
+  }
+  else
+    ERROR("File extension '%s' unrecognized", path.extension().c_str());
+
 
   gvm.loop();
   gvm.deinit();
 
-  //loader.load("1level.l");
-  //getchar();
-
-  delete player;
+  if (player)
+    delete player;
 
   audio.cleanup();
 
