@@ -19,6 +19,11 @@ int const scope_width = 512;
 #include "plugins/libgme/player/Music_Player.h"
 #include "plugins/libgme/player/Audio_Scope.h"
 
+extern "C"
+{
+  #include "plugins/libupse/upse.h"
+}
+
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -27,32 +32,21 @@ int const scope_width = 512;
 void handle_error(const char*);
 
 static bool paused;
-static Audio_Scope* scope;
 static Music_Player* player;
-static short scope_buf[scope_width * 2];
 
 static void init()
 {
-  // Init scope
-  scope = new Audio_Scope;
-  if (!scope)
-    handle_error("Out of memory");
-  if (scope->init(scope_width, 256))
-    handle_error("Couldn't initialize scope");
-  memset(scope_buf, 0, sizeof scope_buf);
-
   // Create player
   player = new Music_Player;
   if (!player)
     handle_error("Out of memory");
   handle_error(player->init());
-  player->set_scope_buffer(scope_buf, scope_width * 2);
 }
 
 static void start_track(int track, const char* path)
 {
   paused = false;
-  handle_error(player->start_track(2));
+  handle_error(player->start_track(0));
 
   // update window title with track info
 
@@ -97,9 +91,6 @@ int mainz()
   while (running)
   {
     SDL_Delay(1000 / 100);
-
-    // Update scope
-    scope->draw(scope_buf, scope_width, 2);
 
     // Automatically go to next track when current one ends
     if (player->track_ended())
@@ -191,7 +182,6 @@ int mainz()
 
   // Cleanup
   delete player;
-  delete scope;
 
   return 0;
 }
@@ -218,10 +208,42 @@ void handle_error(const char* error)
 }
 
 
-
+void* mopen(const char* path, const char* mode) { return fopen(path, mode); }
+int mclose(void* file) { return fclose((FILE*)file); }
+long mtell(void* file) { return ftell((FILE*)file); }
+size_t mread(void* ptr, size_t size, size_t count, void* file) { return fread(ptr, size, count, (FILE*)file); }
+int mseek(void* file, long offset, int whence) { return fseek((FILE*)file, offset, whence); }
 
 int main(int argc, char* argv[])
 {
+  /*const char* path = "D:/dev/retroplay/projects/ms2017/RetroPlay/ff7/319 Aeris' Theme.minipsf";
+
+  upse_iofuncs_t functs = 
+  {
+    mopen, mread, mseek, mclose, mtell
+  };
+
+  upse_module_init();
+
+  upse_module_t* module = upse_module_open(path, &functs);
+
+  s16* samples = new s16[module->metadata->rate];
+  int position = 0;
+
+  s16* buffer = nullptr;
+
+  while (position < module->metadata->rate)
+  {
+    int rendered = module->evloop_render(&module->instance, &buffer);
+    memcpy(samples + position, buffer, sizeof(s16) * rendered);
+    position += rendered;
+  }
+
+
+  int rendered = module->evloop_render(&module->instance, &buffer);
+
+  upse_module_close(module);*/
+  
   if (!gvm.init())
     return -1;
 
@@ -233,8 +255,10 @@ int main(int argc, char* argv[])
   }
 
   init();
-  handle_error(player->load_file("smb3.nsf"));
-  start_track(1, "smb3.nsf");
+  handle_error(player->load_file("sml.gbs"));
+  player->set_tempo(1.0f);
+  start_track(1, "sml.gbs");
+  player->mute_voices(3);
 
   gvm.loop();
   gvm.deinit();

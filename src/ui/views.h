@@ -19,8 +19,16 @@ namespace ui
       SDL_RenderClear(renderer);
     }
 
-    void handleKeyboardEvent(const SDL_Event& event) override { }
+    void handleKeyboardEvent(const SDL_Event& event) override;
     void handleMouseEvent(const SDL_Event& event) override { }
   };
+
+  void MainView::handleKeyboardEvent(const SDL_Event& event)
+  {
+    switch (event.key.keysym.sym)
+    {
+      case SDLK_ESCAPE: gvm->exit(); break;
+    }
+  }
 }
 
